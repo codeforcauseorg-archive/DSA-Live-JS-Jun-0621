@@ -31,4 +31,14 @@
 
 
 
+let a = 2;
+let b = "";
+// console.log(a && b);
+
+
+// console.log(a||b);
+console.log(!b);
+
+
+
 
