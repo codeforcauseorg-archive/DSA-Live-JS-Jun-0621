@@ -5,7 +5,8 @@ while (rowMirror < 2 * n - 1) {
   let col = 0;
   let colMirror = 0;
   while (colMirror < 2 * n - 1) {
-    process.stdout.write("(" + col + ", " + row + ")");
+    let element = n - Math.min(row, col);
+    process.stdout.write(element + " ");
     colMirror++;
     if (colMirror < n) {
       col++;
