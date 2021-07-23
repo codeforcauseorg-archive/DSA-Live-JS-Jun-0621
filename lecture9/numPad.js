@@ -1,37 +1,35 @@
-function numPad(input, numStr, arr){
-    if(input===""){
-        console.log(numStr);
-        return;
-    }
+function numPad(input, numStr, arr) {
+  if (input === "") {
+    console.log(numStr);
+    return;
+  }
 
-    let ind = parseInt(input[0]);
-    let modInput = input.substring(1);
+  let ind = parseInt(input[0]);
+  let modInput = input.substring(1);
 
-    let str = arr[ind];
+  let str = arr[ind];
 
-    for(let ch of str){
-        let newNumStr = numStr+ch;
-        numPad(modInput, newNumStr, arr);
-    }
+  for (let ch of str) {
+    let newNumStr = numStr + ch;
+    numPad(modInput, newNumStr, arr);
+  }
 }
 
+function numPadOtp(input, arr, numStr = "", index = 0) {
+  if (index === input.length) {
+    console.log(numStr);
+    return;
+  }
 
-function numPadOtp(input, numStr, arr, index){
-    if(index===input.length){
-        console.log(numStr);
-        return;
-    }
+  let ind = parseInt(input[index]);
 
-    let ind = parseInt(input[index]);
-
-    let str = arr[ind];
-    for(let ch of str){
-        let newNumStr = numStr+ch;
-        numPadOtp(input, newNumStr, arr, index+1);
-    }
+  let str = arr[ind];
+  for (let ch of str) {
+    let newNumStr = numStr + ch;
+    numPadOtp(input, arr, newNumStr, index + 1);
+  }
 }
-
 
 let arr = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
 // numPad("22", "", arr);
-numPadOtp("23", "", arr, 0);
+numPadOtp("23", arr);

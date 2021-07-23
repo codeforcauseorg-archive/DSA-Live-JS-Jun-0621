@@ -1,4 +1,4 @@
-function permute(orgStr, perStr){
+function permute(orgStr, perStr=""){
     if(orgStr===""){
         console.log(perStr);
         return;
@@ -15,4 +15,4 @@ function permute(orgStr, perStr){
 }
 
 
-permute("abc", "");
+permute("abc");
