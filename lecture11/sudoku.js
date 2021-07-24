@@ -15,21 +15,24 @@ function sudokuSolver(matrix, row=0, col=0){
         for(let row of matrix){
             console.log(row);
         }
+        return;
     }
 
     if(col === matrix.length){
         sudokuSolver(matrix, row+1, 0);
+        return;
     }
 
     if(matrix[row][col] != 0){
         sudokuSolver(matrix, row, col+1);
     }
-
-    for(let i =1; i<=9; i++){
-        if(isSafe(matrix, row, col, i)){
-            matrix[row][col] = i;
-            sudokuSolver(matrix, row, col+1);
-            matrix[row][col] = 0;
+    else{
+        for(let i =1; i<=9; i++){
+            if(isSafe(matrix, row, col, i)){
+                matrix[row][col] = i;
+                sudokuSolver(matrix, row, col+1);
+                matrix[row][col] = 0;
+            }
         }
     }
 }
