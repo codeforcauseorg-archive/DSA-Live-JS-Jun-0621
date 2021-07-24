@@ -15,4 +15,4 @@ function permute(orgStr, perStr=""){
 }
 
 
-permute("abc");
+permute("aac");
