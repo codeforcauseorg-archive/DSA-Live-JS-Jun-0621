@@ -10,10 +10,9 @@ let matrix = [[0, 4, 0, 0, 0, 7, 6, 0, 0],
 
 
 function sudokuSolver(matrix, row=0, col=0){
-    // console.log(row, col);
     if(row===matrix.length){
         for(let row of matrix){
-            console.log(row);
+            console.log(row.join(" "));
         }
         return;
     }
