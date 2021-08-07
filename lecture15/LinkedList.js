@@ -102,6 +102,10 @@ class LinkedList{
     }
 
     add(data, index){
+        if(index > this.#size){
+            return;
+        }
+        
         if(index==0){
             this.addStart(data);
             return;
@@ -122,14 +126,16 @@ class LinkedList{
     }
 
     delete(index){
+        if(index<0 || index>=this.#size){
+            return null;
+        }
+
         if(index==0){
-            this.deleteStart();
-            return;
+            return this.deleteStart();
         }
 
         if(index==this.#size-1){
-            this.deleteEnd();
-            return;
+            return this.deleteEnd();
         }
 
         let cur = this.get(index-1);
@@ -183,6 +189,12 @@ linkedList.display();
 // console.log(linkedList.get(2));
 
 linkedList.add(10, 2);
+
+console.log("-------------------------------");
+linkedList.display();
+
+console.log("-------------------------------");
+console.log(linkedList.delete(2));
 
 console.log("-------------------------------");
 linkedList.display();
