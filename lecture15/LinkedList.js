@@ -105,7 +105,7 @@ class LinkedList{
         if(index > this.#size){
             return;
         }
-        
+
         if(index==0){
             this.addStart(data);
             return;
@@ -147,6 +147,58 @@ class LinkedList{
         this.#size--;
         return temp.data;
     }
+
+    getMid(){
+        // let prev = null;
+        let slow = this.#head;
+        let fast = this.#head;
+
+        while(fast!=null && fast.next !=null){
+            // prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // return this.#size%2==0 ? prev.data : slow.data;
+        return slow.data;
+    }
+
+    cycleDetection(){
+        let slow = this.#head;
+        let fast = this.#head;
+
+        while(fast!=null && fast.next !=null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    startOfCycle(){
+        let slow = this.#head;
+        let fast = this.#head;
+
+        while(fast!=null && fast.next !=null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                break;
+            }
+        }
+
+        slow = this.#head;
+
+        while(slow!=fast){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow.data;
+    }
+
+
 
     display(){
         let cur = this.#head;
@@ -193,11 +245,18 @@ linkedList.add(10, 2);
 console.log("-------------------------------");
 linkedList.display();
 
-console.log("-------------------------------");
-console.log(linkedList.delete(2));
+// console.log("-------------------------------");
+// console.log(linkedList.delete(2));
+
+// console.log("-------------------------------");
+// linkedList.display();
+
 
 console.log("-------------------------------");
-linkedList.display();
+console.log(linkedList.getMid());
+
+
+
 
 
 
