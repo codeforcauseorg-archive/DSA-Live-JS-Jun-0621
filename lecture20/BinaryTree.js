@@ -12,6 +12,8 @@ class Node{
 
 class BinaryTree{
     root;
+
+    // O(n)
     insert(){
         this.root = this.#insert(this.root);
     }
@@ -32,6 +34,7 @@ class BinaryTree{
         return node;
     }
 
+    // O(n)
     display(){
         this.#display(this.root, "");
     }
@@ -45,6 +48,7 @@ class BinaryTree{
         }
     }
 
+    // O(n)
     preOrder(){
         this.#preOrder(this.root);
         console.log();
@@ -58,6 +62,7 @@ class BinaryTree{
         this.#preOrder(node.right);
     }
 
+    // O(n)
     inOrder(){
         this.#inOrder(this.root);
         console.log();
@@ -71,6 +76,7 @@ class BinaryTree{
         this.#inOrder(node.right);
     }
 
+    // O(n)
     postOrder(){
         this.#postOrder(this.root);
         console.log();
@@ -84,9 +90,10 @@ class BinaryTree{
         process.stdout.write(`${node.data} `);
     }
 
+    // O(n)
     levelOrder(){
         this.#levelOrder1(this.root);
-        console.log();
+        // console.log();
     }
     #levelOrder(node){
         let queue = [];
@@ -104,7 +111,7 @@ class BinaryTree{
             }
         }
     }
-
+    // O(n)
     #levelOrder1(node){
         let queue = [];
         queue.push(node);
@@ -126,6 +133,7 @@ class BinaryTree{
         }
     }
 
+    // O(n)
     find(target){
         return this.#find(target, this.root);
     }
@@ -142,6 +150,61 @@ class BinaryTree{
         return left || right;
     }
 
+    // O(n)
+    height(){
+        return this.#height1(this.root);
+    }
+    // no of nodes
+    #height(node){
+        if(node== null){
+            return 0;
+        }
+
+        let leftHeight = this.#height(node.left);
+        let rightHeight = this.#height(node.right);
+        return 1 + Math.max(leftHeight, rightHeight)
+    }
+    // no of edges
+    #height1(node){
+        if(node== null){
+            return -1;
+        }
+
+        let leftHeight = this.#height1(node.left);
+        let rightHeight = this.#height1(node.right);
+        return 1 + Math.max(leftHeight, rightHeight)
+    }
+
+    // O(n^2)
+    diameter(){
+        return this.#diameter(this.root);
+    }
+    #diameter(node){
+        if(node == null){
+            return 0;
+        }
+        let leftHeight = this.#height(node.left);
+        let rightHeigt = this.#height(node.right);
+
+        let curDia = 1 + leftHeight + rightHeigt;
+        let LeftDia = this.#diameter(node.left);
+        let rightDia = this.#diameter(node.right);
+        return Math.max(curDia, LeftDia, rightDia);
+    }
+
+    // O(n)
+    mirror(){
+        this.#mirror(this.root);
+    }
+    #mirror(node){
+        if(node == null){
+            return;
+        }
+        [node.left, node.right] = [node.right, node.left];
+
+        this.#mirror(node.left);
+        this.#mirror(node.right);
+    }
     
 }
 
@@ -159,8 +222,13 @@ bt.display();
 // bt.postOrder();
 
 bt.levelOrder();
-console.log(bt.find(3));
-console.log(bt.find(6));
+// console.log(bt.find(3));
+// console.log(bt.find(6));
+// console.log(bt.height());
+// console.log(bt.diameter());
+bt.mirror();
+
+bt.levelOrder();
 
 // 1
 // Left
