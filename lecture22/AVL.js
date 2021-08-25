@@ -89,4 +89,100 @@ class AVL{
         return this.#findNext(node.left);
     }
 
+    find(target){
+        return this.#find(target, this.#root);
+    }
+    #find(target, node){
+        if(node == null){
+            return false;
+        }
+        if(node.data === target){
+            return true;
+        }
+        else if(target>node.data){
+            return this.#find(target, node.right);
+        }
+        else{
+            return this.#find(target, node.left);
+        }
+    }
+
+    #avlBalance(node){
+        if(this.#height(node.left) - this.#height(node.right) > 1 ){
+            if(this.#height(node.left.left) - this.#height(node.left.right) <0){
+                node.left = this.#leftRotate(node.left);
+            }
+            node = this.#rightRotate(node);
+        }
+        else if(this.#height(node.left) - this.#height(node.right) < -1 ){
+            if(this.#height(node.right.left) - this.#height(node.right.right) > 0){
+                node.right = this.#rightRotate(node.right);
+            }
+            node = this.#leftRotate(node);
+        }
+
+        return node;
+    }
+
+    #leftRotate(x){
+        let y = x.right;
+        let t2 = y.left;
+
+        y.left = x;
+        x.right = t2;
+
+        x.height = Math.max(this.#height(x.left), this.#height(x.right))+1;
+        y.height = Math.max(this.#height(y.left), this.#height(y.right))+1;
+
+        return y;
+    }
+
+    #rightRotate(x){
+        let y = x.left;
+        let t2 = y.right;
+
+        y.right = x;
+        x.left = t2;
+
+        x.height = Math.max(this.#height(x.left), this.#height(x.right))+1;
+        y.height = Math.max(this.#height(y.left), this.#height(y.right))+1;
+        
+        return y;
+    }
+
+    isBalanced(){
+        return this.#isBalanced(this.#root);
+    }
+    #isBalanced(node){
+        if(node == null){
+            return true;
+        }
+
+        let lHeight = this.#height(node.left);
+        let rHeight = this.#height(node.right);
+        let diff = Math.abs(lHeight - rHeight);
+
+        if(diff > 1){
+            return false;
+        }
+
+        let leftBalance = this.#isBalanced(node.left);
+        let rightBalance = this.#isBalanced(node.right);
+        return leftBalance && rightBalance;
+    }
+
 }
+
+let avl = new AVL();
+
+for(let index = 0; index < 1000000; index++){
+    avl.insert(index);
+}
+
+console.log(avl.isBalanced(), avl.height());
+
+for(let index = 0; index < 999996; index++){
+    avl.delete(index);
+}
+
+console.log(avl.isBalanced(), avl.height());
