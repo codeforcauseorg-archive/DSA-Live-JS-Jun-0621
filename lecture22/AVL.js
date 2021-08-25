@@ -25,6 +25,7 @@ class AVL{
         return node.height;
     }
 
+    // O(logn)
     insert(value){
         this.#root = this.#insert(this.#root, value);
     }
@@ -47,6 +48,7 @@ class AVL{
         return node;
     }
 
+    // O(logn)
     delete(target){
         this.#root = this.#delete(target, this.#root);
     }
@@ -82,6 +84,7 @@ class AVL{
         return node;
     }
 
+    // O(logn)
     #findNext(node){
         if(node.left == null){
             return node.data;
@@ -89,6 +92,7 @@ class AVL{
         return this.#findNext(node.left);
     }
 
+    // O(log(n))
     find(target){
         return this.#find(target, this.#root);
     }
@@ -107,6 +111,7 @@ class AVL{
         }
     }
 
+    // O(1)
     #avlBalance(node){
         if(this.#height(node.left) - this.#height(node.right) > 1 ){
             if(this.#height(node.left.left) - this.#height(node.left.right) <0){
@@ -124,6 +129,7 @@ class AVL{
         return node;
     }
 
+    // O(1)
     #leftRotate(x){
         let y = x.right;
         let t2 = y.left;
@@ -137,6 +143,7 @@ class AVL{
         return y;
     }
 
+    // O(1)
     #rightRotate(x){
         let y = x.left;
         let t2 = y.right;
