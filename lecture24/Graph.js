@@ -50,6 +50,125 @@ class Graph{
             process.stdout.write("\n");
         }
     }
+
+    dft(start){
+        let sVertex = this.getVertex(start);
+        let stack = [];
+        let visited = new Set();
+
+        stack.push(sVertex);
+        visited.add(sVertex);
+
+        while(stack.length > 0){
+            let top = stack.pop();
+            console.log(top.data);
+
+            for(let neighbour of top.neighbours){
+                if(!visited.has(neighbour)){
+                    stack.push(neighbour);
+                    visited.add(neighbour);
+                }
+            }
+        }
+    }
+
+    dfs(start, target){
+        let sVertex = this.getVertex(start);
+        let stack = [];
+        let visited = new Set();
+
+        stack.push(sVertex);
+        visited.add(sVertex);
+
+        while(stack.length > 0){
+            let top = stack.pop();
+            if(top.data === target){
+                return true;
+            }
+
+            for(let neighbour of top.neighbours){
+                if(!visited.has(neighbour)){
+                    stack.push(neighbour);
+                    visited.add(neighbour);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    bft(start){
+        let sVertex = this.getVertex(start);
+        let queue = [];
+        let visited = new Set();
+
+        queue.push(sVertex);
+        visited.add(sVertex);
+
+        while(queue.length>0){
+            let deque = queue.shift();
+            console.log(deque.data);
+
+            for (const neighbour of deque.neighbours) {
+                if(!visited.has(neighbour)){
+                    visited.add(neighbour);
+                    queue.push(neighbour);
+                }
+            }
+        }
+    }
+
+    bfs(start, target){
+        let sVertex = this.getVertex(start);
+        let queue = [];
+        let visited = new Set();
+
+        queue.push(sVertex);
+        visited.add(sVertex);
+
+        while(queue.length>0){
+            let deque = queue.shift();
+            if(deque.data === target){
+                return true;
+            }
+
+            for (const neighbour of deque.neighbours) {
+                if(!visited.has(neighbour)){
+                    visited.add(neighbour);
+                    queue.push(neighbour);
+                }
+            }
+        }
+        return false;
+    }
+
+    bft2(start){
+        let sVertex = this.getVertex(start);
+        let queue = [];
+        let visited = new Set();
+
+        queue.push(sVertex);
+        visited.add(sVertex);
+
+        while(queue.length>0){
+            let size = queue.length;
+
+            for(let i =0; i<size; i++){
+                let deque = queue.shift();
+                process.stdout.write(`${deque.data} `);
+                for (const neighbour of deque.neighbours) {
+                    if(!visited.has(neighbour)){
+                        visited.add(neighbour);
+                        queue.push(neighbour);
+                    }
+                }
+            }
+            process.stdout.write("\n");
+            
+        }
+    }
+
+
 }
 
 let graph = new Graph();
@@ -68,5 +187,12 @@ graph.addEdge("C", "D");
 
 graph.display();
 
+// graph.dft("B");
 
+// console.log(graph.dfs("A", "D"))
 
+// graph.bft("A");
+
+// console.log(graph.bfs("A", "B"))
+
+graph.bft2("A");
