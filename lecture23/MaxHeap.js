@@ -1,4 +1,4 @@
-class MinHeap{
+class MaxHeap{
     #data;
     constructor(){
         this.#data = [];
@@ -31,7 +31,7 @@ class MinHeap{
 
         while(idx > 0){
             let parent = this.#parent(idx);
-            if(this.#data[idx] < this.#data[parent]){
+            if(this.#data[idx] > this.#data[parent]){
                 [this.#data[idx], this.#data[parent]] = [this.#data[parent],  this.#data[idx]];
                 idx = parent;
             }
@@ -53,19 +53,19 @@ class MinHeap{
             let left = this.#left(idx);
             let right = this.#right(idx);
 
-            let minIdx = idx;
+            let maxIdx = idx;
             
-            if(left < this.size() && this.#data[left] < this.#data[minIdx]){
-                minIdx = left;
+            if(left < this.size() && this.#data[left] > this.#data[maxIdx]){
+                maxIdx = left;
             }
 
-            if(right < this.size() && this.#data[right] < this.#data[minIdx]){
-                minIdx = right;
+            if(right < this.size() && this.#data[right] > this.#data[maxIdx]){
+                maxIdx = right;
             }
 
-            if(idx != minIdx){
-                [this.#data[idx], this.#data[minIdx]] = [this.#data[minIdx],  this.#data[idx]];
-                idx = minIdx;
+            if(idx != maxIdx){
+                [this.#data[idx], this.#data[maxIdx]] = [this.#data[maxIdx],  this.#data[idx]];
+                idx = maxIdx;
             }
             else{
                 break;
@@ -92,7 +92,7 @@ class MinHeap{
 
 }
 
-let heap = new MinHeap();
+let heap = new MaxHeap();
 
 // heap.insert(6);
 // heap.insert(23);
