@@ -90,7 +90,6 @@ class Graph {
     this.#findAllPaths(v1Vertex, v2, visited, path, allPaths);
     return allPaths;
   }
-
   #findAllPaths(cur, target, visited, path, allPaths) {
     if (cur.data == target) {
       allPaths.push(path.join(" -> "));
@@ -138,7 +137,7 @@ class Graph {
   }
 
   // O(V+E)
-  isConnected(){
+  isConnected() {
     let visited = new Set();
     let components = 0;
 
@@ -163,11 +162,11 @@ class Graph {
       }
       components++;
     }
-    return components===1;
+    return components === 1;
   }
 
   // O(V+E)
-  allConnectedComponents(){
+  allConnectedComponents() {
     let visited = new Set();
     let allComponents = [];
 
@@ -195,6 +194,51 @@ class Graph {
     }
     return allComponents;
   }
+
+  // O(V+E)
+  bipartite() {
+    let visited = new Set();
+    let red = new Set();
+    let black = new Set();
+
+    for (let [vertexData, vertex] of this.#vertices) {
+      if (visited.has(vertex)) {
+        continue;
+      }
+
+      let stack = [];
+
+      stack.push(vertex);
+      visited.add(vertex);
+      red.add(vertex);
+
+      while (stack.length > 0) {
+        let parent = stack.pop();
+
+        for (let neighbour of parent.neighbours) {
+          if (!visited.has(neighbour)) {
+            stack.push(neighbour);
+            visited.add(neighbour);
+
+            if (red.has(parent)) {
+              black.add(neighbour);
+            } else {
+              red.add(neighbour);
+            }
+          } else {
+            if (red.has(parent) && red.has(neighbour)) {
+              return false;
+            }
+
+            if (black.has(parent) && black.has(neighbour)) {
+              return false;
+            }
+          }
+        }
+      }
+    }
+    return true;
+  }
 }
 
 let graph = new Graph();
@@ -204,19 +248,16 @@ graph.addVertex("C");
 graph.addVertex("D");
 graph.addVertex("E");
 graph.addVertex("F");
-// graph.addVertex("G");
-
-
+graph.addVertex("G");
 
 graph.addEdge("A", "B");
 graph.addEdge("A", "C");
-graph.addEdge("B", "C");
+// graph.addEdge("B", "C");
 graph.addEdge("D", "E");
 graph.addEdge("F", "E");
-graph.addEdge("C", "F");
-
+graph.addEdge("C", "D");
 
 graph.display();
 
 // console.log(graph.hasPath("A", "E"));
-console.log(graph.allConnectedComponents());
+console.log(graph.bipartite());
