@@ -153,6 +153,7 @@ class Graph {
     }
   }
 
+  // O(V + ElogV)
   dijkstra(source) {
     let sVertex = this.#vertices.get(source);
 
